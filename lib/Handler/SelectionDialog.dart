@@ -82,6 +82,7 @@ Future<void> showLinkDialog({
                       ClipboardData? clipboard =
                           await Clipboard.getData(Clipboard.kTextPlain);
                       if (clipboard == null) return;
+                      myText = clipboard.text!;
                       _controller1.text = clipboard.text!;
                     },
                     icon: Icon(Icons.paste),
@@ -97,7 +98,6 @@ Future<void> showLinkDialog({
               onPressed: () {
                 if (myText.isEmpty || nameText.isEmpty) return;
                 if (!Uri.parse(myText).isAbsolute) return;
-
                 startDownload(LinkHandler(myText, nameText));
                 Navigator.pop(context);
               },
