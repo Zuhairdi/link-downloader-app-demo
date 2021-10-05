@@ -51,7 +51,8 @@ Future<void> showLinkDialog({
     builder: (BuildContext context) {
       String nameText = '';
       String myText = '';
-      TextEditingController _controller = TextEditingController();
+      TextEditingController _controller1 = TextEditingController();
+      TextEditingController _controller2 = TextEditingController();
       return AlertDialog(
         contentPadding: EdgeInsets.all(10.0),
         content: Container(
@@ -59,21 +60,21 @@ Future<void> showLinkDialog({
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                controller: _controller,
+                controller: _controller2,
                 decoration: InputDecoration(
                   labelText: 'File name',
                   suffixIcon: IconButton(
                     onPressed: () async {
-                      _controller.clear();
+                      _controller2.clear();
                     },
-                    icon: Icon(Icons.cancel),
+                    icon: Icon(Icons.cancel_outlined),
                   ),
                 ),
                 onChanged: (value) => nameText = value,
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _controller,
+                controller: _controller1,
                 decoration: InputDecoration(
                   labelText: 'URL',
                   suffixIcon: IconButton(
@@ -81,7 +82,7 @@ Future<void> showLinkDialog({
                       ClipboardData? clipboard =
                           await Clipboard.getData(Clipboard.kTextPlain);
                       if (clipboard == null) return;
-                      _controller.text = clipboard.text!;
+                      _controller1.text = clipboard.text!;
                     },
                     icon: Icon(Icons.paste),
                   ),
