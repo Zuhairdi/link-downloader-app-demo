@@ -135,7 +135,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 }),
                 onLinkSelected: () => showLinkDialog(
                   context: context,
-                  startDownload: (url) {},
+                  startDownload: (handler) {
+                    FileDownloader.start(
+                      filename: handler.filename,
+                      url: handler.url,
+                      onProgress: (progress) {
+                        NotificationHandler.progressNotification(progress);
+                      },
+                      onComplete: (fileData) {
+                        NotificationHandler.localNotificationsPlugin
+                            .cancelAll();
+                        FileData.saveToList(fileData);
+                        refresh();
+                      },
+                      onFailed: () {
+                        NotificationHandler.localNotificationsPlugin
+                            .cancelAll();
+                        toast('Download failed');
+                      },
+                    );
+                  },
                 ),
               );
             },

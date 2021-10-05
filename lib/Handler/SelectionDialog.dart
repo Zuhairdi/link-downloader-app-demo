@@ -43,7 +43,7 @@ Future<void> showSelectionDialog(
 
 Future<void> showLinkDialog({
   required BuildContext context,
-  required Function(String) startDownload,
+  required Function(LinkHandler) startDownload,
 }) async {
   return showDialog<void>(
     context: context,
@@ -97,7 +97,8 @@ Future<void> showLinkDialog({
               onPressed: () {
                 if (myText.isEmpty || nameText.isEmpty) return;
                 if (!Uri.parse(myText).isAbsolute) return;
-                startDownload(myText);
+
+                startDownload(LinkHandler(myText, nameText));
                 Navigator.pop(context);
               },
               child: Text('Download'))
@@ -105,4 +106,11 @@ Future<void> showLinkDialog({
       );
     },
   );
+}
+
+class LinkHandler {
+  String url;
+  String filename;
+
+  LinkHandler(this.url, this.filename);
 }
